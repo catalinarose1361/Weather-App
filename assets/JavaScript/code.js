@@ -1,8 +1,10 @@
 $(function () {
 
     // initial array of cities
+    
     var cities = ["denver", "london", "tokyo"];
     console.log(cities);
+    
     
     // displayCurrentConditions function re-renders the html to display the appropriate content
     function displayCityInfo() {
@@ -12,6 +14,7 @@ $(function () {
         // var city = "london";
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=f451c9c3a39157d09ff9b33b7929d7e8";
         console.log(queryURL);
+        
 
         // creating an AJAX call for the specific city button being clicked
         $.ajax({
@@ -24,6 +27,20 @@ $(function () {
             // creating a Div to hold the city info
             var cityInfoDiv = $("<div class='apiInfo'>");
            $(".apiInfo").empty();
+
+            // storing the current city name data
+            var cName= response.name;
+            var weatherIcon = response.weather[0].icon;
+            
+            // creating an element to display the city name and icon
+            var cHeader = $("<h2>").text(cName);
+            var weatherImage = $("<img src='https://openweathermap.org/img/w/" + weatherIcon + ".png'>")
+
+            // displaying the city name and icon
+
+            cityInfoDiv.append(cHeader);
+            cityInfoDiv.append(weatherImage)
+
             // storing the current temp data 
             var temp = response.main.temp;
             
@@ -67,6 +84,8 @@ $(function () {
         for (var i = 0; i < cities.length; i ++) {
             // Then dynamicaly generating buttons for each city in the array
             var a = $("<button type='button' class='btn btn-dark btn-lg btn-block'>");
+
+            var key = 0;
             // adding a class of city-btn to our button
             a.addClass("city-btn");
             // adding a data attribute
@@ -75,6 +94,8 @@ $(function () {
             a.text(cities[i]);
             // adding the button to the butons - view div
             $("#buttons-view").append(a);
+
+         
         }
     }
     // renderButtons();
@@ -87,6 +108,7 @@ $(function () {
         cities.push(city);
         // calling render Buttons which handles the processing of our city array
         renderButtons();
+
     })
 
     // adding a click event listener to all elements with a class of "city-btn"

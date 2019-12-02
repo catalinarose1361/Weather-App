@@ -12,21 +12,24 @@
     <title>Weather App</title>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-primary">
-        <span class="navbar-brand mb-0 h1">World Weather</span>
-    </nav>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">World Weather</h1>
+        
+        </div>
+    </div>
 
+    <nav class="navbar navbar-light bg-primary">
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" id="city-input" type="search" placeholder="Search" aria-label="Search">
+            <!-- button triggers new movie to be added -->
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="add-city">Search</button>
+        </form>
+    </nav>
     <div class="container-fluid">
         <div class="row">
             <div class="col-3" id="sidebar">
 
-                    <nav class="navbar navbar-light bg-primary">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" id="city-input" type="search" placeholder="Search" aria-label="Search">
-                            <!-- button triggers new movie to be added -->
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="add-city">Search</button>
-                        </form>
-                    </nav>
                 
                     <!--Renderd Buttons Will Get Dumped Here  -->
                 <div class="btn-group-vertical" id="buttons-view">
@@ -34,28 +37,18 @@
                 </div>
 
             </div>
-            <div class="col">
-                <div class="row">
-                    <h1>Current Conditions</h1>
-                </div>
-                <div class="row" id="city-view"></div>
-                <div class="row">
-                    <h1>5 day forcast</h1>
-                </div>
-                <div class="row">
-                    <div class="col">Monday</div>
-                    <div class="col">Tuesday</div>
-                    <div class="col">Wednesday</div>
-                    <div class="col">Thursday</div>
-                    <div class="col">Friday</div>
-                </div>
+            <div class="col" id="city-view">
+                <h1>Current Conditions</h1>
+                <!-- info goes here -->
+            </div>
+            <div class="col" id="fiveday">
+                <h1>Five Day Forcast</h1>
             </div>
         </div>
     </div>
 
     <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="assets/JavaScript/code.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
