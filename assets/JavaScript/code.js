@@ -20,11 +20,10 @@ $(function () {
             method: "GET"
     
         }).then(function(response) {
-    
-            // creating a Div to hold the city info
-            var cityInfoDiv = $("#city-view");
             
-
+            // creating a Div to hold the city info
+            var cityInfoDiv = $("<div class='apiInfo'>");
+           $(".apiInfo").empty();
             // storing the current temp data 
             var temp = response.main.temp;
             
@@ -51,11 +50,13 @@ $(function () {
 
             // displaying the wind speed data
             cityInfoDiv.append(pThree);
+
+            $("#city-view").append(cityInfoDiv);
             
            
         });
     };
-    displayCityInfo();
+    // displayCityInfo();
     
     // function for displaying city data
     function renderButtons() {
@@ -65,7 +66,7 @@ $(function () {
         // looping through array of cities
         for (var i = 0; i < cities.length; i ++) {
             // Then dynamicaly generating buttons for each city in the array
-            var a = $("<button>");
+            var a = $("<button type='button' class='btn btn-dark btn-lg btn-block'>");
             // adding a class of city-btn to our button
             a.addClass("city-btn");
             // adding a data attribute
@@ -77,7 +78,7 @@ $(function () {
         }
     }
     // renderButtons();
-    // this function handles events where a city button is clicked
+    // this function handles events where add city button is clicked
     $("#add-city").on("click", function(event) {
         event.preventDefault();
         // This line grabs the input from the text box 
