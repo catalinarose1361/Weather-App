@@ -74,6 +74,8 @@ $(function () {
         });
     };
     // displayCityInfo();
+    // http://api.openweathermap.org/data/2.5/forecast?q=London&mode=xml&appid=f451c9c3a39157d09ff9b33b7929d7e8 - working 5 day url
+    
     
     // function for displaying city data
     function renderButtons() {

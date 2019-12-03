@@ -6,6 +6,7 @@
     display: inline-block;
 }
 
-button {
-  
+#add-city {
+    background-color: darkgoldenrod;
+    color: white;
 }
