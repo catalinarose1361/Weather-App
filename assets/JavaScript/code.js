@@ -2,19 +2,71 @@ $(function () {
 
     // initial array of cities
     
-    var cities = ["denver", "london", "tokyo"];
-    console.log(cities);
+    var cities = ["Denver", "London", "Tokyo"];
+    
     
     
     // displayCurrentConditions function re-renders the html to display the appropriate content
     function displayCityInfo() {
- 
+        
 
         var city = $(this).attr("data-name");
         // var city = "london";
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=f451c9c3a39157d09ff9b33b7929d7e8";
         console.log(queryURL);
         
+        DayForecastURL = "https://api.openweathermap.org/data/2.5/find?q=" + city + "&units=imperial&appid=f451c9c3a39157d09ff9b33b7929d7e8";
+
+        $.ajax({
+            url: DayForecastURL,
+            method: "GET"
+        }).then(function(response) {
+       
+            $("#apiResults").empty();
+
+            var forecastTitle =  $('<h2>');
+
+            forecastTitle.text("5-Day Forecast: ");
+
+            $(".fiveDayForecastTitle").append(forecastTitle);
+        
+            for(var i = 0; i < 5; i++){
+
+                var forecast = $('<div id="fiveDay">');
+                
+                forecast.attr("class", "col-md-2 col-sm-6");
+                    
+                    //adding date 
+                    var nextDate = $('<h6>')
+                    nextDate.text(moment().add(i + 1, 'days').format('L')); 
+                    forecast.append(nextDate);
+
+                    // storing the curent icon data
+                    var weatherIcon = response.list[i].weather[0].icon;
+
+                    //creating an element to display the icon
+                    var weatherImage = $("<img src='https://openweathermap.org/img/w/" + weatherIcon + ".png'>")
+
+                    //displaying the icon
+                    forecast.append(weatherImage)
+                    
+                    //temperature
+                    var nextTemp = $('<p>');
+                    nextTemp.text("Temperature: " + response.list[i].main.temp + "°F");
+                    forecast.append(nextTemp);
+                    
+                    //humidity
+                    var nextHumidity = $('<p>');
+                    nextHumidity.text("Humidity: " + response.list[i].main.humidity + "%");
+                    forecast.append(nextHumidity);
+                    
+                    //put all the information onto the page
+                    $("#apiResults").append(forecast);
+                }
+              
+           
+        })
+
 
         // creating an AJAX call for the specific city button being clicked
         $.ajax({
@@ -30,15 +82,20 @@ $(function () {
 
             // storing the current city name data
             var cName= response.name;
+
+            // storing the curent icon data
             var weatherIcon = response.weather[0].icon;
             
-            // creating an element to display the city name and icon
+            // creating an element to display the city name 
             var cHeader = $("<h2>").text(cName);
+
+            //creating an element to display the icon
             var weatherImage = $("<img src='https://openweathermap.org/img/w/" + weatherIcon + ".png'>")
 
-            // displaying the city name and icon
-
+            // displaying the city name
             cityInfoDiv.append(cHeader);
+
+            //displaying the icon
             cityInfoDiv.append(weatherImage)
 
             // storing the current temp data 
@@ -73,8 +130,7 @@ $(function () {
            
         });
     };
-    // displayCityInfo();
-    // http://api.openweathermap.org/data/2.5/forecast?q=London&mode=xml&appid=f451c9c3a39157d09ff9b33b7929d7e8 - working 5 day url
+  
     
     
     // function for displaying city data
@@ -87,20 +143,22 @@ $(function () {
             // Then dynamicaly generating buttons for each city in the array
             var a = $("<button type='button' class='btn btn-dark btn-lg btn-block'>");
 
-            var key = 0;
             // adding a class of city-btn to our button
             a.addClass("city-btn");
+
             // adding a data attribute
             a.attr("data-name", cities[i]);
+
             // providing the initial button text
             a.text(cities[i]);
+
             // adding the button to the butons - view div
             $("#buttons-view").append(a);
 
          
         }
     }
-    // renderButtons();
+    
     // this function handles events where add city button is clicked
     $("#add-city").on("click", function(event) {
         event.preventDefault();
