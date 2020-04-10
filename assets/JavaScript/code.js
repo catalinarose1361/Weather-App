@@ -24,43 +24,37 @@ $(function () {
        
             $("#apiResults").empty();
 
-            var forecastTitle =  $('<h2>');
-
-            forecastTitle.text("5-Day Forecast: ");
-
-            $(".fiveDayForecastTitle").append(forecastTitle);
-        
             for(var i = 0; i < 5; i++){
 
                 var forecast = $('<div id="fiveDay">');
                 
                 forecast.attr("class", "col-md-2 col-sm-6");
                     
-                    //adding date 
+                    //Date
                     var nextDate = $('<h6>')
                     nextDate.text(moment().add(i + 1, 'days').format('L')); 
                     forecast.append(nextDate);
 
-                    // storing the curent icon data
+                    // Icon Data
                     var weatherIcon = response.list[i].weather[0].icon;
 
-                    //creating an element to display the icon
+                    //Icon Element
                     var weatherImage = $("<img src='https://openweathermap.org/img/w/" + weatherIcon + ".png'>")
 
-                    //displaying the icon
+                    //Icon append
                     forecast.append(weatherImage)
                     
-                    //temperature
+                    //Temp
                     var nextTemp = $('<p>');
-                    nextTemp.text("Temperature: " + response.list[i].main.temp + "°F");
+                    nextTemp.text("Temp: " + response.list[i].main.temp + "°F");
                     forecast.append(nextTemp);
                     
-                    //humidity
+                    //Humidity
                     var nextHumidity = $('<p>');
                     nextHumidity.text("Humidity: " + response.list[i].main.humidity + "%");
                     forecast.append(nextHumidity);
                     
-                    //put all the information onto the page
+                    //Appends Div
                     $("#apiResults").append(forecast);
                 }
               
